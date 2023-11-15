@@ -6,3 +6,6 @@ services:
     build:
       context: .
       dockerfile: TemperatureAutomation.Api/Dockerfile
+    environment: 
+      BrewFather__User: "##"
+      BrewFather__Key: "##"

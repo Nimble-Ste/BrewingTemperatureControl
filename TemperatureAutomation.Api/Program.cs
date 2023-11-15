@@ -5,12 +5,16 @@ namespace TemperatureAutomation.Api
     using TemperatureMonitor;
     using Models;
     using SmartPlug;
+    using System.Runtime;
+    using System;
 
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Configuration.AddEnvironmentVariables();
 
             // Add services to the container.
 
@@ -19,7 +23,6 @@ namespace TemperatureAutomation.Api
             builder.Services.AddTransient<SmartPlugService>();
 
             builder.Services.AddSingleton<TemperatureMonitorService>();
-
             builder.Services.Configure<BrewFatherConfig>(builder.Configuration.GetSection("BrewFather"));
 
             builder.Services.AddControllers();
