@@ -6,6 +6,9 @@ services:
     build:
       context: .
       dockerfile: TemperatureAutomation.Api/Dockerfile
-    environment: 
+    ports:
+      - 2080:8080
+      - 2443:8081
+    environment:
       BrewFather__User: "##"
       BrewFather__Key: "##"

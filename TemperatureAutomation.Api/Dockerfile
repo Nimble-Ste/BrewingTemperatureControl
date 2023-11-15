@@ -26,4 +26,5 @@ RUN dotnet publish "./TemperatureAutomation.Api.csproj" -c $BUILD_CONFIGURATION 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
 ENTRYPOINT ["dotnet", "TemperatureAutomation.Api.dll"]
