@@ -2,10 +2,11 @@
 {
     using System.Net.Http.Headers;
     using System.Net.Http.Json;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Models;
 
-    public class BrewFatherApi (IOptions<BrewFatherConfig> configuration)
+    public class BrewFatherApi (IOptions<BrewFatherConfig> configuration, ILogger<BrewFatherApi> logger)
     {
         private string AuthKey = Base64Encode($"{configuration.Value.User}:{configuration.Value.Key}");
         private string BaseURL = "https://api.brewfather.app/v1";

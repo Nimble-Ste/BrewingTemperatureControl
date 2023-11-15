@@ -8,7 +8,7 @@
     public class TemperatureMonitorService(BrewFatherService brewFatherService, SmartPlugService smartPlugService, IConfiguration configuration,
         ILogger<TemperatureMonitorService> logger)
     {
-        private IDisposable MonitoringLoop;
+        private IDisposable? MonitoringLoop;
 
         private float minTemp = configuration.GetValue<float>("MinTemp");
         private float maxTemp = configuration.GetValue<float>("MaxTemp");
@@ -16,28 +16,36 @@
 
         public async Task StartMonitoringAsync()
         {
-            MonitoringLoop = Observable.Interval(TimeSpan.FromSeconds(30)).StartWith(0).Subscribe(async _ =>
+            if (MonitoringLoop != null)
             {
-                var isPlugOn = await smartPlugService.IsOnAsync();
+                logger.LogInformation("Already monitoring");
+            }
+            else
+            {
 
-                var temp = await brewFatherService.GetTemperatureAsync();
-
-                if (!isPlugOn && temp < minTemp)
+                MonitoringLoop = Observable.Interval(TimeSpan.FromMinutes(10)).StartWith(0).Subscribe(async _ =>
                 {
+                    var isPlugOn = await smartPlugService.IsOnAsync();
 
-                    logger.LogInformation("Plug Turning On");
+                    var temp = await brewFatherService.GetTemperatureAsync();
 
-                    await smartPlugService.TurnOnAsync();
-                }
+                    if (!isPlugOn && temp < minTemp)
+                    {
 
-                if (isPlugOn && temp > maxTemp)
-                {
-                    logger.LogInformation("Plug Turning Off");
+                        logger.LogInformation("Plug Turning On");
 
-                    await smartPlugService.TurnOffAsync();
-                }
+                        await smartPlugService.TurnOnAsync();
+                    }
 
-            });
+                    if (isPlugOn && temp > maxTemp)
+                    {
+                        logger.LogInformation("Plug Turning Off");
+
+                        await smartPlugService.TurnOffAsync();
+                    }
+
+                });
+            }
         }
 
         public async Task StopMonitoringAsync()
@@ -47,6 +55,7 @@
             await smartPlugService.TurnOffAsync();
 
             MonitoringLoop?.Dispose();
+            MonitoringLoop = null;
         }
     }
 }
