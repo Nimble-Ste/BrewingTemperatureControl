@@ -1,0 +1,6 @@
+@TemperatureAutomation.Api_HostAddress = http://localhost:5127
+
+GET {{TemperatureAutomation.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  temperatureautomation.api:
+    image: ${DOCKER_REGISTRY-}temperatureautomationapi
+    build:
+      context: .
+      dockerfile: TemperatureAutomation.Api/Dockerfile

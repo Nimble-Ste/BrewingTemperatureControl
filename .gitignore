@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+TemperatureAutomation.Api/appsettings.Development.json

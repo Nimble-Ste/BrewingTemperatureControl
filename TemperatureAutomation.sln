@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureAutomation.Api", "TemperatureAutomation.Api\TemperatureAutomation.Api.csproj", "{FB14C919-56FF-4790-ABB6-FAE5CDC74884}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureAutomation.TemperatureMonitor", "TemperatureAutomation.TemperatureMonitor\TemperatureAutomation.TemperatureMonitor.csproj", "{F3B6D657-6ADF-454B-A55E-E8060141BAE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureAutomation.Models", "TemperatureAutomation.Models\TemperatureAutomation.Models.csproj", "{75CD4004-92E1-4417-99A1-E1CE97FDEFF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureAutomation.BrewFather", "TemperatureAutomation.BrewFather\TemperatureAutomation.BrewFather.csproj", "{694EA841-4702-4A4B-982D-BB96F17677E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureAutomation.SmartPlug", "TemperatureAutomation.SmartPlug\TemperatureAutomation.SmartPlug.csproj", "{3DC03BA9-199E-40B9-AEF5-52A3A1365B83}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{74386513-8FC3-4D6B-AA92-47939AD45164}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB14C919-56FF-4790-ABB6-FAE5CDC74884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB14C919-56FF-4790-ABB6-FAE5CDC74884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB14C919-56FF-4790-ABB6-FAE5CDC74884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB14C919-56FF-4790-ABB6-FAE5CDC74884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3B6D657-6ADF-454B-A55E-E8060141BAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B6D657-6ADF-454B-A55E-E8060141BAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3B6D657-6ADF-454B-A55E-E8060141BAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3B6D657-6ADF-454B-A55E-E8060141BAE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75CD4004-92E1-4417-99A1-E1CE97FDEFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75CD4004-92E1-4417-99A1-E1CE97FDEFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75CD4004-92E1-4417-99A1-E1CE97FDEFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75CD4004-92E1-4417-99A1-E1CE97FDEFF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{694EA841-4702-4A4B-982D-BB96F17677E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{694EA841-4702-4A4B-982D-BB96F17677E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{694EA841-4702-4A4B-982D-BB96F17677E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{694EA841-4702-4A4B-982D-BB96F17677E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC03BA9-199E-40B9-AEF5-52A3A1365B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC03BA9-199E-40B9-AEF5-52A3A1365B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC03BA9-199E-40B9-AEF5-52A3A1365B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC03BA9-199E-40B9-AEF5-52A3A1365B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74386513-8FC3-4D6B-AA92-47939AD45164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74386513-8FC3-4D6B-AA92-47939AD45164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74386513-8FC3-4D6B-AA92-47939AD45164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74386513-8FC3-4D6B-AA92-47939AD45164}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {725FB7EB-95E9-4451-8029-55E612B07600}
+	EndGlobalSection
+EndGlobal
