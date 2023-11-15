@@ -12,3 +12,8 @@ services:
     environment:
       BrewFather__User: "##"
       BrewFather__Key: "##"
+      Shelly__Key: "##"
+      Shelly__Server: "##"
+      Shelly__DeviceId: "##"
+      MinTemp: "18.5"
+      MaxTemp: "19.5"

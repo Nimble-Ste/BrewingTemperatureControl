@@ -1,22 +1,65 @@
 ﻿namespace TemperatureAutomation.SmartPlug
 {
-    public class SmartPlugService
+    using System.Net.Http;
+    using System.Net.Http.Json;
+    using Microsoft.Extensions.Options;
+    using Models;
+
+    public class SmartPlugService(IOptions<ShellyConfig> configuration)
     {
         public async Task<bool> IsOnAsync()
         {
-            await Task.Delay(100);
+            using var httpClient = new HttpClient();
+            var settings = configuration.Value;
 
-            return true;
+
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("id", settings.DeviceId),
+                new KeyValuePair<string, string>("auth_key", settings.Key)
+            });
+
+
+            var resp = await httpClient.PostAsync($"{settings.Server}/device/status", content);
+
+            var shellyResponse = await resp.Content.ReadFromJsonAsync<ShellyResponse>();
+
+            return shellyResponse.data.device_status.switch0.output;
         }
+
 
         public async Task TurnOnAsync()
         {
-            await Task.Delay(100);
+            using var httpClient = new HttpClient();
+            var settings = configuration.Value;
+
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("channel", "0"),
+                new KeyValuePair<string, string>("turn", "on"),
+                new KeyValuePair<string, string>("id", settings.DeviceId),
+                new KeyValuePair<string, string>("auth_key", settings.Key)
+            });
+
+
+            var resp = await httpClient.PostAsync($"{settings.Server}/device/relay/control", content);
         }
 
         public async Task TurnOffAsync()
         {
-            await Task.Delay(100);
+            using var httpClient = new HttpClient();
+            var settings = configuration.Value;
+
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("channel", "0"),
+                new KeyValuePair<string, string>("turn", "off"),
+                new KeyValuePair<string, string>("id", settings.DeviceId),
+                new KeyValuePair<string, string>("auth_key", settings.Key)
+            });
+
+
+            var resp = await httpClient.PostAsync($"{settings.Server}/device/relay/control", content);
         }
     }
 }

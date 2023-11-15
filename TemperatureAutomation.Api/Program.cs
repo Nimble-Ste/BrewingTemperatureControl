@@ -24,6 +24,7 @@ namespace TemperatureAutomation.Api
 
             builder.Services.AddSingleton<TemperatureMonitorService>();
             builder.Services.Configure<BrewFatherConfig>(builder.Configuration.GetSection("BrewFather"));
+            builder.Services.Configure<ShellyConfig>(builder.Configuration.GetSection("Shelly"));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

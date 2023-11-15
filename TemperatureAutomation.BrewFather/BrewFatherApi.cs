@@ -20,7 +20,7 @@
             var result = await httpClient.GetAsync(BaseURL + "/batches");
 
 
-            var batches = await result.Content.ReadFromJsonAsync<BatchResponse[]>();
+            var batches = await result.Content.ReadFromJsonAsync<List<BatchResponse>>();
 
             var latest = batches?.First(x => x.status == "Fermenting");
 

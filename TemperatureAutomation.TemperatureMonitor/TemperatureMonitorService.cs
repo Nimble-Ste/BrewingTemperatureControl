@@ -16,6 +16,10 @@
 
         public async Task StartMonitoringAsync()
         {
+            logger.LogInformation($"using min temp {minTemp}");
+
+            logger.LogInformation($"using max temp {maxTemp}");
+
             if (MonitoringLoop != null)
             {
                 logger.LogInformation("Already monitoring");
@@ -26,6 +30,8 @@
                 MonitoringLoop = Observable.Interval(TimeSpan.FromMinutes(10)).StartWith(0).Subscribe(async _ =>
                 {
                     var isPlugOn = await smartPlugService.IsOnAsync();
+
+                    logger.LogInformation($"Is Plug On {isPlugOn}");
 
                     var temp = await brewFatherService.GetTemperatureAsync();
 
