@@ -13,6 +13,8 @@
         private float minTemp = configuration.GetValue<float>("MinTemp");
         private float maxTemp = configuration.GetValue<float>("MaxTemp");
 
+        private bool PlusIsOn;
+
 
         public async Task StartMonitoringAsync()
         {
@@ -34,22 +36,23 @@
                         try
                         {
 
-                            var isPlugOn = await smartPlugService.IsOnAsync();
-
-                            logger.LogInformation($"Is Plug On {isPlugOn}");
+                            logger.LogInformation($"Is Plug On {PlusIsOn}");
 
                             var temp = await brewFatherService.GetTemperatureAsync();
 
-                            if (!isPlugOn && temp < minTemp)
+                            if (!PlusIsOn && temp < minTemp)
                             {
+
+                                PlusIsOn = true;
 
                                 logger.LogInformation("Plug Turning On");
 
                                 await smartPlugService.TurnOnAsync();
                             }
 
-                            if (isPlugOn && temp > maxTemp)
+                            if (PlusIsOn && temp > maxTemp)
                             {
+                                PlusIsOn = false;
                                 logger.LogInformation("Plug Turning Off");
 
                                 await smartPlugService.TurnOffAsync();
@@ -69,6 +72,8 @@
         public async Task StopMonitoringAsync()
         {
             logger.LogInformation("Stop Monitoring. Turning Plug Off");
+
+            PlusIsOn = false;
 
             await smartPlugService.TurnOffAsync();
 
