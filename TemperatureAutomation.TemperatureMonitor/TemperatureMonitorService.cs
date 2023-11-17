@@ -21,6 +21,8 @@
 
             this.plugIsOn = await smartPlugService.IsOnAsync();
 
+            await Task.Delay(TimeSpan.FromSeconds(5));
+
             logger.LogInformation($"using min temp {minTemp}");
 
             logger.LogInformation($"using max temp {maxTemp}");
