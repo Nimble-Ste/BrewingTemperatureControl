@@ -13,67 +13,68 @@
         private float minTemp = configuration.GetValue<float>("MinTemp");
         private float maxTemp = configuration.GetValue<float>("MaxTemp");
 
-        private bool PlusIsOn;
+        private bool plugIsOn;
 
 
         public async Task StartMonitoringAsync()
         {
 
+            this.plugIsOn = await smartPlugService.IsOnAsync();
 
-                logger.LogInformation($"using min temp {minTemp}");
+            logger.LogInformation($"using min temp {minTemp}");
 
-                logger.LogInformation($"using max temp {maxTemp}");
+            logger.LogInformation($"using max temp {maxTemp}");
 
-                if (MonitoringLoop != null)
+            if (MonitoringLoop != null)
+            {
+                logger.LogInformation("Already monitoring");
+            }
+            else
+            {
+
+                MonitoringLoop = Observable.Interval(TimeSpan.FromMinutes(10)).StartWith(0).Subscribe(async _ =>
                 {
-                    logger.LogInformation("Already monitoring");
-                }
-                else
-                {
-
-                    MonitoringLoop = Observable.Interval(TimeSpan.FromMinutes(10)).StartWith(0).Subscribe(async _ =>
+                    try
                     {
-                        try
+
+                        logger.LogInformation($"Is Plug On {plugIsOn}");
+
+                        var temp = await brewFatherService.GetTemperatureAsync();
+
+                        if (!plugIsOn && temp < minTemp)
                         {
 
-                            logger.LogInformation($"Is Plug On {PlusIsOn}");
+                            plugIsOn = true;
 
-                            var temp = await brewFatherService.GetTemperatureAsync();
+                            logger.LogInformation("Plug Turning On");
 
-                            if (!PlusIsOn && temp < minTemp)
-                            {
-
-                                PlusIsOn = true;
-
-                                logger.LogInformation("Plug Turning On");
-
-                                await smartPlugService.TurnOnAsync();
-                            }
-
-                            if (PlusIsOn && temp > maxTemp)
-                            {
-                                PlusIsOn = false;
-                                logger.LogInformation("Plug Turning Off");
-
-                                await smartPlugService.TurnOffAsync();
-                            }
+                            await smartPlugService.TurnOnAsync();
                         }
-                        catch (Exception ex)
+
+                        if (plugIsOn && temp > maxTemp)
                         {
-                            logger.LogCritical(ex, ex.Message);
-                            await this.StopMonitoringAsync();
-                        }
-                    });
-                }
+                            plugIsOn = false;
+                            logger.LogInformation("Plug Turning Off");
 
-            
+                            await smartPlugService.TurnOffAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogCritical(ex, ex.Message);
+                        await this.StopMonitoringAsync();
+                    }
+                });
+            }
+
+
         }
 
         public async Task StopMonitoringAsync()
         {
             logger.LogInformation("Stop Monitoring. Turning Plug Off");
 
-            PlusIsOn = false;
+            plugIsOn = false;
 
             await smartPlugService.TurnOffAsync();
 
