@@ -22,9 +22,11 @@
 
             var resp = await httpClient.PostAsync($"{settings.Server}/device/status", content);
 
+            var test = await resp.Content.ReadAsStringAsync();
+
             var shellyResponse = await resp.Content.ReadFromJsonAsync<ShellyResponse>();
 
-            return shellyResponse.data.device_status.switch0.output;
+            return shellyResponse.data.device_status.dswitch.output;
         }
 
 
