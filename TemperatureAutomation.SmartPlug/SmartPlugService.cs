@@ -2,10 +2,11 @@
 {
     using System.Net.Http;
     using System.Net.Http.Json;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Models;
 
-    public class SmartPlugService(IOptions<ShellyConfig> configuration)
+    public class SmartPlugService(IOptions<ShellyConfig> configuration, ILogger<SmartPlugService> logger)
     {
         public async Task<bool> IsOnAsync()
         {
@@ -21,8 +22,6 @@
 
 
             var resp = await httpClient.PostAsync($"{settings.Server}/device/status", content);
-
-            var test = await resp.Content.ReadAsStringAsync();
 
             var shellyResponse = await resp.Content.ReadFromJsonAsync<ShellyResponse>();
 
@@ -45,6 +44,10 @@
 
 
             var resp = await httpClient.PostAsync($"{settings.Server}/device/relay/control", content);
+
+            var info = await resp.Content.ReadAsStringAsync();
+
+            logger.LogInformation($"Response from turn on event {info}");
         }
 
         public async Task TurnOffAsync()
